@@ -5,4 +5,4 @@ namespace: openshift-gitops
 
 resources:
   - placements-project.yaml
-  - placements-application.yaml
+  - placements-app.yaml
