@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
   project: placements-project
   source:
-    path: gitops/base/placements
+    path: manifests/base/placements
     repoURL: https://github.com/acm-demo/policies.git
     targetRevision: main
   syncPolicy:
