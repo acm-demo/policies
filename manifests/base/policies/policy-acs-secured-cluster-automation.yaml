@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicyAutomation
+metadata:
+  name: policy-acs-secured-cluster-policy-automation
+  namespace: openshift-acm-policies
+spec:
+  automationDef:
+    name: ACM Demo create servicenow incident
+    extra_vars: {}
+    secret: aap-creds
+    type: AnsibleJob
+  delayAfterRunSeconds: 1
+  mode: everyEvent
+  policyRef: policy-acs-secured-cluster
