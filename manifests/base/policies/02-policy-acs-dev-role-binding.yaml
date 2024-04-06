@@ -50,7 +50,7 @@ spec:
                   - kind: Group
                     namespace: acm-demo-dev
                     name: 320335a2-7a70-4996-8060-e59c5a4d323a
-                clusterRoleRef:
+                roleRef:
                   apiGroup: rbac.authorization.k8s.io
                   kind: ClusterRole
                   name: dev-user-list-access
