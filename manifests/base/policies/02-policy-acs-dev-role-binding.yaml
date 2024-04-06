@@ -1,0 +1,56 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: default-role-bindings
+  namespace: openshift-acm-policies
+  annotations:
+    policy.open-cluster-management.io/description: Set the default approved RBAC
+    policy.open-cluster-management.io/categories: AC Access Control
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/controls: AC-3 Access Enforcement
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-rolebinding
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: RoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: dev-user-access
+                  namespace: acm-demo-dev
+                subjects:
+                  - kind: Group
+                    namespace: acm-demo-dev
+                    name: 320335a2-7a70-4996-8060-e59c5a4d323a
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: Role
+                  name: dev-user-full-access
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: default-role-bindings-placement
+  namespace: openshift-acm-policies
+placementRef:
+  name: aks-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: default-role-bindings
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - all-cluster-placement.yaml
+  - aks-cluster-placement.yaml

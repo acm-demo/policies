@@ -1,0 +1,52 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: default-aks-role-policy
+  namespace: openshift-acm-policies
+  annotations:
+    policy.open-cluster-management.io/categories: AC Access Control
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/controls: AC-3 Access Enforcement
+spec:
+  disabled: false
+  remediationAction: enforce
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-role
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: mustonlyhave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: Role
+                metadata:
+                  name: dev-user-full-access
+                  namespace: acm-demo-dev
+                rules:
+                  - apiGroups: [""]
+                    resources: ["*"]
+                    verbs: ["get", "list", "watch", "create", "update", "patch"]
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: aks-role-placement-binding
+  namespace: openshift-acm-policies
+placementRef:
+  name: aks-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: default-aks-role-policy
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
