@@ -60,6 +60,55 @@ spec:
                   - apiGroups: [""]
                     resources: ["namespaces"]
                     verbs: ["get", "list"]
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-ops-role
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: Role
+                metadata:
+                  name: ops-user-full-access
+                  namespace: acm-demo-ops
+                rules:
+                  - apiGroups: [""]
+                    resources: ["*"]
+                    verbs: ["get", "list", "watch", "create", "update", "patch"]
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-cluster-ops-role
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: ClusterRole
+                metadata:
+                  name: ops-user-list-access
+                rules:
+                  - apiGroups: [""]
+                    resources: ["namespaces"]
+                    verbs: ["get", "list"]
 
 ---
 apiVersion: policy.open-cluster-management.io/v1

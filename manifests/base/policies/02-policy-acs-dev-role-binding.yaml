@@ -54,6 +54,35 @@ spec:
                   apiGroup: rbac.authorization.k8s.io
                   kind: ClusterRole
                   name: dev-user-list-access
+            - complianceType: musthave
+              objectDefinition:
+                kind: RoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: ops-user-access
+                  namespace: acm-demo-ops
+                subjects:
+                  - kind: Group
+                    namespace: acm-demo-ops
+                    name: e6ac95e5-a4ad-41ee-b6b1-f649733c9fe6
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: Role
+                  name: ops-user-full-access
+            - complianceType: musthave
+              objectDefinition:
+                kind: ClusterRoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: ops-user-access-list
+                subjects:
+                  - kind: Group
+                    namespace: acm-demo-ops
+                    name: e6ac95e5-a4ad-41ee-b6b1-f649733c9fe6
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: ops-user-list-access
 
 ---
 apiVersion: policy.open-cluster-management.io/v1
