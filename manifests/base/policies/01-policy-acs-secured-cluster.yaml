@@ -45,24 +45,13 @@ spec:
           remediationAction: inform
           severity: low
           object-templates:
-
           - complianceType: musthave
             objectDefinition:
-
-              apiVersion: operators.coreos.com/v1alpha1
-              kind: Subscription
+              apiVersion: apps/v1
+              kind: Deployment
               metadata:
-                labels:
-                  operators.coreos.com/rhacs-operator.openshift-operators: ""
-                name: rhacs-operator
-                namespace: openshift-operators
-              spec:
-                channel: stable
-                installPlanApproval: Automatic
-                name: rhacs-operator
-                source: redhat-operators
-                sourceNamespace: openshift-marketplace
-
+                 name: admission-control
+                 namespace: stackrox
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
