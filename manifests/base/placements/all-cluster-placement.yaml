@@ -2,7 +2,7 @@
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: policy-acs-secured-cluster-placement
+  name: policy-all-placement
   namespace: openshift-acm-policies
 spec:
   clusterSets:

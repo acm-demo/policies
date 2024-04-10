@@ -5,7 +5,7 @@ metadata:
   name: policy-acs-secured-cluster-placement-binding
   namespace: openshift-acm-policies
 placementRef:
-  name: policy-acs-secured-cluster-placement
+  name: policy-aks-placement
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
 subjects:
