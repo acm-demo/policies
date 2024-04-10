@@ -6,4 +6,4 @@ metadata:
   namespace: openshift-acm-policies
 spec:
   clusterSets:
-    - all-clusters
+    - global
