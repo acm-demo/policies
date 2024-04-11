@@ -8,7 +8,7 @@ metadata:
     policy.open-cluster-management.io/controls: Configurations
     policy.open-cluster-management.io/standards: Configurations
 spec:
-  remediationAction: enforce
+  remediationAction: inform
   disabled: false
   policy-templates:
 
@@ -30,7 +30,7 @@ spec:
               metadata:
                 labels:
                   kubernetes.io/metadata.name: stackrox
-                name: stackrox-fail
+                name: stackrox
               spec:
                 finalizers:
                 - kubernetes
@@ -50,7 +50,7 @@ spec:
               apiVersion: apps/v1
               kind: Deployment
               metadata:
-                 name: admission-control
+                 name: admission-control-fail
                  namespace: stackrox
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
