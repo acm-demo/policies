@@ -7,4 +7,4 @@ metadata:
 spec:
   clusterSets:
     - aks-clusters
-    - all-clusters
+    - gke-clusters
