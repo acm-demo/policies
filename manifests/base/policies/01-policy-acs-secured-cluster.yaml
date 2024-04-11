@@ -30,7 +30,7 @@ spec:
               metadata:
                 labels:
                   kubernetes.io/metadata.name: stackrox
-                name: stackrox
+                name: stackrox-fail
               spec:
                 finalizers:
                 - kubernetes
